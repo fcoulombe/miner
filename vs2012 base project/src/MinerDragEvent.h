@@ -1,10 +1,8 @@
 #pragma once
 
-#include <glm/glm.hpp>
 #include "Grid.h"
 
-class MinerDragEvent
-{
+class MinerDragEvent {
 public:
     MinerDragEvent() {}
     MinerDragEvent(const glm::vec2 &screenMousePos, Grid &grid);
