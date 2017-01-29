@@ -3,8 +3,7 @@
 #include <functional>
 #include <list>
 
-class InterpolationTask
-{
+class InterpolationTask {
 public:
     InterpolationTask(std::function<void(float)> task, float duration);
     bool Update(float dt);
@@ -13,8 +12,8 @@ private:
     float mDuration;
     float mTime = 0.0f;
 };
-class TaskManager
-{
+
+class TaskManager {
 public:
     static TaskManager &Instance();
     void RunTaskOverTime(std::function<void(float)> task, float duration);

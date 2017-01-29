@@ -22,16 +22,13 @@ public:
 
     void MoveTo(int x, int y, float time = 0.3f);
 
-    void SetPosition(int x, int y)
-    {
+    void SetPosition(int x, int y) {
         SetPosition(MapGridToScreen(glm::ivec2(x, y)));
     }
-    void SetPosition(const glm::ivec2 &position)
-    {
+    void SetPosition(const glm::ivec2 &position) {
         SetPosition(MapGridToScreen(position));
     }
-    void SetPosition(const glm::vec2 &position)
-    {
+    void SetPosition(const glm::vec2 &position) {
         mPosition = position;
     }
     const glm::vec2 &GetPosition() const { return mPosition; }
@@ -45,7 +42,7 @@ public:
 private:
     King::Engine::Texture mTexture;
     glm::vec2 mPosition;
-    bool mIsVisible;
+    bool mIsVisible = true;
     float mAlpha = 0.0f;
 };
 

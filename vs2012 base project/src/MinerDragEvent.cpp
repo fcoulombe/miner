@@ -1,8 +1,6 @@
 #include "MinerDragEvent.h"
 #include "Utils.h"
 
-
-
 MinerDragEvent::MinerDragEvent(const glm::vec2 &screenMousePos, Grid &grid) {
     mStartDragMouseScreenPos = screenMousePos;
     mStartDragGridPos = MapScreenToGrid(screenMousePos);

@@ -4,7 +4,6 @@
 
 Block::Block()
     : mTexture((King::Engine::Texture)(rand() % kNumTypeBlocks + 1))
-    , mIsVisible(true)
 {
     FadeIn();
 }

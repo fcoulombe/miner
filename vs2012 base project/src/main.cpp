@@ -51,7 +51,7 @@ public:
         
         mEngine.Write(std::to_string(mPoints).c_str(), 100.0f, 150.0f, 0.0f);
 
-        //run the animation. don't let the user do anything while it's animating
+        // run the animation. don't let the user do anything while it's animating
         if (TaskManager::Instance().IsBusy() || mIsFinished) {
             TaskManager::Instance().Update(mEngine.GetLastFrameSeconds());
             return;
@@ -61,7 +61,7 @@ public:
 
         // perform inputs
         const auto screenMousePos = glm::vec2(mEngine.GetMouseX(), mEngine.GetMouseY());
-        //start dragging
+        // start dragging
         if (mEngine.GetMouseButtonDown() && IsWithinGrid(screenMousePos)) {
             if (!mIsDragging) {
                 mIsDragging = true;
@@ -72,7 +72,7 @@ public:
         if (mIsDragging) {
             mDragEvent.OnDrag(screenMousePos, mGrid);
         }
-        //end dragging
+        // end dragging
         if (mEngine.GetMouseButtonUp() && mIsDragging) {
             if (mSelection)
                 mSelection->Unselect();

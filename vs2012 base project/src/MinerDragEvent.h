@@ -17,7 +17,7 @@ private:
     void ResetPositions();
     glm::vec2 mStartDragMouseScreenPos;
     glm::ivec2 mStartDragGridPos;
-    Block *mDraggedBlock=nullptr;
+    Block *mDraggedBlock = nullptr;
     
     glm::ivec2 mOppositeStartDragGridPos;
     Block *mOppositeDraggedBlock = nullptr;

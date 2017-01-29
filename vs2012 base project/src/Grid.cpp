@@ -75,6 +75,7 @@ std::vector<Block *> Grid::GetHorizontalMatchingBlocks() {
     }
     return horizontalMatchingBlocks;
 }
+
 std::vector<Block *> Grid::GetVerticalMatchingBlocks() {
 
     Grid &grid = *this;
