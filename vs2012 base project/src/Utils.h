@@ -26,7 +26,7 @@ inline const glm::ivec2 MapScreenToGrid(const glm::vec2 &screenPosition) {
 
 inline const glm::vec2 MapGridToScreen(const glm::vec2 &gridPosition) {
     return glm::vec2(gridPosition.x*kBlockSize + kGridOffsetX, 
-                    gridPosition.y*kBlockSize + kGridOffsetY);
+                     gridPosition.y*kBlockSize + kGridOffsetY);
 }
 
 inline bool IsWithinGrid(const glm::ivec2 &screenMousePos) {

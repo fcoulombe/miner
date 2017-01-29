@@ -14,18 +14,20 @@ public:
     }
 
     void FadeOut() {
-        for (int y = 0; y < kGridSize; ++y) {
-            for (int x = 0; x < kGridSize; ++x) {
-                (*this)[y][x].FadeOut();
+        Grid &grid = *(this);
+        for (auto &&row : grid) {
+            for (auto &&block : row) {
+                block.FadeOut();
             }
         }
     }
     void Reset() {
-        for (int y = 0; y < kGridSize; ++y) {
-            for (int x = 0; x < kGridSize; ++x) {
+        Grid &grid = *(this);
+        for (auto &&row : grid) {
+            for (auto &&block : row) {
                 int blockId = rand() % kNumTypeBlocks + 1;
-                (*this)[y][x].SetTexture((King::Engine::Texture)(blockId));
-                (*this)[y][x].FadeIn();
+                block.SetTexture((King::Engine::Texture)(blockId));
+                block.FadeIn();
             }
         }
         mHadMatches = true;
@@ -33,9 +35,9 @@ public:
 
     void Render(King::Engine &engine) {
         Grid &grid = *(this);
-        for (int y = 0; y < kGridSize; ++y) {
-            for (int x = 0; x < kGridSize; ++x) {
-                grid[y][x].Render(engine);
+        for (auto &&row : grid) {
+            for (auto &&block : row) {
+                block.Render(engine);
             }
         }
 

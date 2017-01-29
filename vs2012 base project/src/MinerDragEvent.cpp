@@ -35,65 +35,65 @@ void MinerDragEvent::OnDrag(const glm::vec2 &screenMousePos, Grid &grid) {
         return;
     }
 
-    const glm::vec2 originalBlockScreenPos = MapGridToScreen(mStartDragGridPos);
+    const glm::vec2 startBlockScreenPos = MapGridToScreen(mStartDragGridPos);
     // if drag vertical
     if (absDelta.y > absDelta.x) {
         if (delta.y > 0.0f) {
             if (mStartDragGridPos.y + 1 < kGridSize) {
-                float dragLimit = originalBlockScreenPos.y + kBlockSize + kHalfBlockSize;
-                const auto newPos = glm::vec2(originalBlockScreenPos.x,
+                float dragLimit = startBlockScreenPos.y + kBlockSize + kHalfBlockSize;
+                const auto newPos = glm::vec2(startBlockScreenPos.x,
                                               glm::min(screenMousePos.y, dragLimit) - kHalfBlockSize);
                 mDraggedBlock->SetPosition(newPos);
 
                 mOppositeStartDragGridPos = glm::ivec2(mStartDragGridPos.x, mStartDragGridPos.y + 1);
                 mOppositeDraggedBlock = &(grid[mOppositeStartDragGridPos.y][mOppositeStartDragGridPos.x]);
-                const glm::vec2 originalOppositeScreenPos = MapGridToScreen(mOppositeStartDragGridPos);
-                mOppositeDraggedBlock->SetPosition(glm::vec2(originalOppositeScreenPos.x,
-                                                             originalOppositeScreenPos.y - (newPos.y - originalBlockScreenPos.y)));
+                const glm::vec2 startOppositeScreenPos = MapGridToScreen(mOppositeStartDragGridPos);
+                mOppositeDraggedBlock->SetPosition(glm::vec2(startOppositeScreenPos.x,
+                                                             startOppositeScreenPos.y - (newPos.y - startBlockScreenPos.y)));
             }
         }
         else {
             if (mStartDragGridPos.y - 1 >= 0) {
-                float dragLimit = originalBlockScreenPos.y - kBlockSize + kHalfBlockSize;
-                const auto newPos = glm::vec2(originalBlockScreenPos.x,
+                float dragLimit = startBlockScreenPos.y - kBlockSize + kHalfBlockSize;
+                const auto newPos = glm::vec2(startBlockScreenPos.x,
                                               glm::max(screenMousePos.y, dragLimit) - kHalfBlockSize);
                 mDraggedBlock->SetPosition(newPos);
 
                 mOppositeStartDragGridPos = glm::ivec2(mStartDragGridPos.x, mStartDragGridPos.y - 1);
                 mOppositeDraggedBlock = &(grid[mOppositeStartDragGridPos.y][mOppositeStartDragGridPos.x]);
-                const glm::vec2 originalOppositeScreenPos = MapGridToScreen(mOppositeStartDragGridPos);
-                mOppositeDraggedBlock->SetPosition(glm::vec2(originalOppositeScreenPos.x,
-                                                            originalOppositeScreenPos.y - (newPos.y - originalBlockScreenPos.y)));
+                const glm::vec2 startOppositeScreenPos = MapGridToScreen(mOppositeStartDragGridPos);
+                mOppositeDraggedBlock->SetPosition(glm::vec2(startOppositeScreenPos.x,
+                                                            startOppositeScreenPos.y - (newPos.y - startBlockScreenPos.y)));
             }
         }
     }
     else {
         if (delta.x > 0.0f) {
             if (mStartDragGridPos.x + 1 < kGridSize) {
-                float dragLimit = originalBlockScreenPos.x + kBlockSize + kHalfBlockSize;
+                float dragLimit = startBlockScreenPos.x + kBlockSize + kHalfBlockSize;
                 auto newPos = glm::vec2(glm::min(screenMousePos.x, dragLimit) - kHalfBlockSize,
-                                        originalBlockScreenPos.y);
+                                        startBlockScreenPos.y);
                 mDraggedBlock->SetPosition(newPos);
 
                 mOppositeStartDragGridPos = glm::ivec2(mStartDragGridPos.x + 1, mStartDragGridPos.y);
                 mOppositeDraggedBlock = &(grid[mOppositeStartDragGridPos.y][mOppositeStartDragGridPos.x]);
-                const glm::vec2 originalOppositeScreenPos = MapGridToScreen(mOppositeStartDragGridPos);
-                mOppositeDraggedBlock->SetPosition(glm::vec2(originalOppositeScreenPos.x - (newPos.x - originalBlockScreenPos.x), 
-                                                            originalOppositeScreenPos.y));
+                const glm::vec2 startOppositeScreenPos = MapGridToScreen(mOppositeStartDragGridPos);
+                mOppositeDraggedBlock->SetPosition(glm::vec2(startOppositeScreenPos.x - (newPos.x - startBlockScreenPos.x), 
+                                                            startOppositeScreenPos.y));
             }
         }
         else {
             if (mStartDragGridPos.x - 1 >= 0) {
-                float dragLimit = originalBlockScreenPos.x - kBlockSize + kHalfBlockSize;
+                float dragLimit = startBlockScreenPos.x - kBlockSize + kHalfBlockSize;
                 auto newPos = glm::vec2(glm::max(screenMousePos.x, dragLimit) - kHalfBlockSize,
-                                        originalBlockScreenPos.y);
+                                        startBlockScreenPos.y);
                 mDraggedBlock->SetPosition(newPos);
                 
                 mOppositeStartDragGridPos = glm::ivec2(mStartDragGridPos.x - 1, mStartDragGridPos.y);
                 mOppositeDraggedBlock = &(grid[mOppositeStartDragGridPos.y][mOppositeStartDragGridPos.x]);
-                const glm::vec2 originalOppositeScreenPos = MapGridToScreen(mOppositeStartDragGridPos);
-                mOppositeDraggedBlock->SetPosition(glm::vec2(originalOppositeScreenPos.x - (newPos.x - originalBlockScreenPos.x), 
-                                                             originalOppositeScreenPos.y));
+                const glm::vec2 startOppositeScreenPos = MapGridToScreen(mOppositeStartDragGridPos);
+                mOppositeDraggedBlock->SetPosition(glm::vec2(startOppositeScreenPos.x - (newPos.x - startBlockScreenPos.x), 
+                                                             startOppositeScreenPos.y));
             }
         }
     }
