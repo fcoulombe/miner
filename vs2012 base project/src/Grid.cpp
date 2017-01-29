@@ -59,7 +59,7 @@ std::vector<Block *> Grid::GetHorizontalMatchingBlocks() {
             else {
                 if (consecutiveBlocks.size() >= 3) {
                     //destroy blocks
-                    for (int k = 0; k < (int)consecutiveBlocks.size(); ++k) {
+                    for (int k = 0; k < static_cast<int>(consecutiveBlocks.size()); ++k) {
                         horizontalMatchingBlocks.emplace_back(&grid[y][consecutiveBlocks[k]]);
                     }
                 }
@@ -68,7 +68,7 @@ std::vector<Block *> Grid::GetHorizontalMatchingBlocks() {
             }
         }
         if (consecutiveBlocks.size() >= 3) {
-            for (int k = 0; k < (int)consecutiveBlocks.size(); ++k) {
+            for (int k = 0; k < static_cast<int>(consecutiveBlocks.size()); ++k) {
                 horizontalMatchingBlocks.emplace_back(&grid[y][consecutiveBlocks[k]]);
             }
         }
@@ -77,7 +77,6 @@ std::vector<Block *> Grid::GetHorizontalMatchingBlocks() {
 }
 
 std::vector<Block *> Grid::GetVerticalMatchingBlocks() {
-
     Grid &grid = *this;
     std::vector<Block*> verticalMatchingBlocks;
     for (int x = 0; x < kGridSize; ++x) {
@@ -89,7 +88,7 @@ std::vector<Block *> Grid::GetVerticalMatchingBlocks() {
             }
             else {
                 if (consecutiveBlocks.size() >= 3) {
-                    for (int k = 0; k < (int)consecutiveBlocks.size(); ++k) {
+                    for (int k = 0; k < static_cast<int>(consecutiveBlocks.size()); ++k) {
                         verticalMatchingBlocks.emplace_back(&grid[consecutiveBlocks[k]][x]);
                     }
                 }
@@ -98,7 +97,7 @@ std::vector<Block *> Grid::GetVerticalMatchingBlocks() {
             }
         }
         if (consecutiveBlocks.size() >= 3) {
-            for (int k = 0; k < (int)consecutiveBlocks.size(); ++k) {
+            for (int k = 0; k < static_cast<int>(consecutiveBlocks.size()); ++k) {
                 verticalMatchingBlocks.emplace_back(&grid[consecutiveBlocks[k]][x]);
             }
         }

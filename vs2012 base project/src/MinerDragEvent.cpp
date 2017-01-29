@@ -41,27 +41,29 @@ void MinerDragEvent::OnDrag(const glm::vec2 &screenMousePos, Grid &grid) {
         if (delta.y > 0.0f) {
             if (mStartDragGridPos.y + 1 < kGridSize) {
                 float dragLimit = originalBlockScreenPos.y + kBlockSize + kHalfBlockSize;
-                auto newPos = glm::vec2(originalBlockScreenPos.x,
-                    glm::min(screenMousePos.y, dragLimit) - kHalfBlockSize);
+                const auto newPos = glm::vec2(originalBlockScreenPos.x,
+                                              glm::min(screenMousePos.y, dragLimit) - kHalfBlockSize);
                 mDraggedBlock->SetPosition(newPos);
 
                 mOppositeStartDragGridPos = glm::ivec2(mStartDragGridPos.x, mStartDragGridPos.y + 1);
                 mOppositeDraggedBlock = &(grid[mOppositeStartDragGridPos.y][mOppositeStartDragGridPos.x]);
                 const glm::vec2 originalOppositeScreenPos = MapGridToScreen(mOppositeStartDragGridPos);
-                mOppositeDraggedBlock->SetPosition(glm::vec2(originalOppositeScreenPos.x, originalOppositeScreenPos.y - (newPos.y - originalBlockScreenPos.y)));
+                mOppositeDraggedBlock->SetPosition(glm::vec2(originalOppositeScreenPos.x,
+                                                             originalOppositeScreenPos.y - (newPos.y - originalBlockScreenPos.y)));
             }
         }
         else {
             if (mStartDragGridPos.y - 1 >= 0) {
                 float dragLimit = originalBlockScreenPos.y - kBlockSize + kHalfBlockSize;
-                auto newPos = glm::vec2(originalBlockScreenPos.x,
-                                        glm::max(screenMousePos.y, dragLimit) - kHalfBlockSize);
+                const auto newPos = glm::vec2(originalBlockScreenPos.x,
+                                              glm::max(screenMousePos.y, dragLimit) - kHalfBlockSize);
                 mDraggedBlock->SetPosition(newPos);
 
                 mOppositeStartDragGridPos = glm::ivec2(mStartDragGridPos.x, mStartDragGridPos.y - 1);
                 mOppositeDraggedBlock = &(grid[mOppositeStartDragGridPos.y][mOppositeStartDragGridPos.x]);
                 const glm::vec2 originalOppositeScreenPos = MapGridToScreen(mOppositeStartDragGridPos);
-                mOppositeDraggedBlock->SetPosition(glm::vec2(originalOppositeScreenPos.x, originalOppositeScreenPos.y - (newPos.y - originalBlockScreenPos.y)));
+                mOppositeDraggedBlock->SetPosition(glm::vec2(originalOppositeScreenPos.x,
+                                                            originalOppositeScreenPos.y - (newPos.y - originalBlockScreenPos.y)));
             }
         }
     }
@@ -69,7 +71,8 @@ void MinerDragEvent::OnDrag(const glm::vec2 &screenMousePos, Grid &grid) {
         if (delta.x > 0.0f) {
             if (mStartDragGridPos.x + 1 < kGridSize) {
                 float dragLimit = originalBlockScreenPos.x + kBlockSize + kHalfBlockSize;
-                auto newPos = glm::vec2(glm::min(screenMousePos.x, dragLimit) - kHalfBlockSize, originalBlockScreenPos.y);
+                auto newPos = glm::vec2(glm::min(screenMousePos.x, dragLimit) - kHalfBlockSize,
+                                        originalBlockScreenPos.y);
                 mDraggedBlock->SetPosition(newPos);
 
                 mOppositeStartDragGridPos = glm::ivec2(mStartDragGridPos.x + 1, mStartDragGridPos.y);
@@ -82,14 +85,15 @@ void MinerDragEvent::OnDrag(const glm::vec2 &screenMousePos, Grid &grid) {
         else {
             if (mStartDragGridPos.x - 1 >= 0) {
                 float dragLimit = originalBlockScreenPos.x - kBlockSize + kHalfBlockSize;
-                auto newPos = glm::vec2(glm::max(screenMousePos.x, dragLimit) - kHalfBlockSize, originalBlockScreenPos.y);
+                auto newPos = glm::vec2(glm::max(screenMousePos.x, dragLimit) - kHalfBlockSize,
+                                        originalBlockScreenPos.y);
                 mDraggedBlock->SetPosition(newPos);
                 
                 mOppositeStartDragGridPos = glm::ivec2(mStartDragGridPos.x - 1, mStartDragGridPos.y);
                 mOppositeDraggedBlock = &(grid[mOppositeStartDragGridPos.y][mOppositeStartDragGridPos.x]);
                 const glm::vec2 originalOppositeScreenPos = MapGridToScreen(mOppositeStartDragGridPos);
                 mOppositeDraggedBlock->SetPosition(glm::vec2(originalOppositeScreenPos.x - (newPos.x - originalBlockScreenPos.x), 
-                                                    originalOppositeScreenPos.y));
+                                                             originalOppositeScreenPos.y));
             }
         }
     }
@@ -100,10 +104,11 @@ void MinerDragEvent::StopDrag(const glm::vec2 &screenMousePos, Grid &grid) {
     if (mOppositeDraggedBlock) {
         auto oppositeGridPos = MapScreenToGrid(mOppositeDraggedBlock->GetPosition());
         if (oppositeGridPos == mStartDragGridPos) {
-            grid[mOppositeStartDragGridPos.y][mOppositeStartDragGridPos.x].SetPosition(glm::ivec2(mStartDragGridPos.x, mStartDragGridPos.y));
-            grid[mStartDragGridPos.y][mStartDragGridPos.x].SetPosition(glm::ivec2(mOppositeStartDragGridPos.x, mOppositeStartDragGridPos.y));
-            std::swap(grid[mOppositeStartDragGridPos.y][mOppositeStartDragGridPos.x], 
-                      grid[mStartDragGridPos.y][mStartDragGridPos.x]);
+            Block &lhs = grid[mOppositeStartDragGridPos.y][mOppositeStartDragGridPos.x];
+            Block &rhs = grid[mStartDragGridPos.y][mStartDragGridPos.x];
+            lhs.SetPosition(glm::ivec2(mStartDragGridPos.x, mStartDragGridPos.y));
+            rhs.SetPosition(glm::ivec2(mOppositeStartDragGridPos.x, mOppositeStartDragGridPos.y));
+            std::swap(lhs, rhs);
             
             auto verticalMatchingBlocks = grid.GetVerticalMatchingBlocks();
             auto horizontalMatchingBlocks = grid.GetHorizontalMatchingBlocks();
@@ -112,8 +117,7 @@ void MinerDragEvent::StopDrag(const glm::vec2 &screenMousePos, Grid &grid) {
                 grid.SetHadMatches();
             }
             else {
-                std::swap(grid[mOppositeStartDragGridPos.y][mOppositeStartDragGridPos.x], 
-                            grid[mStartDragGridPos.y][mStartDragGridPos.x]);
+                std::swap(lhs, rhs);
                 hasSwapped = false;
             }
         }
