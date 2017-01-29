@@ -10,8 +10,9 @@ public:
     void Render(King::Engine &engine);
 
     void FadeIn();
+    void FadeOut();
 
-    void MoveTo(int x, int y, float time = 1.0f);
+    void MoveTo(int x, int y, float time = 0.3f);
 
     void SetPosition(int x, int y)
     {

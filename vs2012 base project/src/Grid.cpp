@@ -1,6 +1,6 @@
 #include "Grid.h"
 
-bool Grid::RemoveMatches() {
+int Grid::RemoveMatches() {
     Grid &grid = *(this);
     auto verticalMatchingBlocks = GetVerticalMatchingBlocks();
     for (auto block : verticalMatchingBlocks) {
@@ -10,7 +10,7 @@ bool Grid::RemoveMatches() {
     for (auto block : horizontalMatchingBlocks) {
         block->SetVisible(false);
     }
-    return !verticalMatchingBlocks.empty() || !horizontalMatchingBlocks.empty();
+    return verticalMatchingBlocks.size() + horizontalMatchingBlocks.size();
 }
 
 void Grid::CollapseGrid() {
@@ -35,7 +35,7 @@ void Grid::CollapseGrid() {
             }
             // if there's no block above, create a new one.
             if (!hasValidBlockAbove) {
-                int blockId = rand() % 5 + 1;
+                int blockId = rand() % kNumTypeBlocks + 1;
                 currentBlock.SetTexture((King::Engine::Texture)(blockId));
                 currentBlock.SetVisible(true);
                 currentBlock.SetPosition(x, aboveGridHeight);

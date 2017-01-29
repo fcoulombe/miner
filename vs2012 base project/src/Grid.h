@@ -13,6 +13,24 @@ public:
         }
     }
 
+    void FadeOut() {
+        for (int y = 0; y < kGridSize; ++y) {
+            for (int x = 0; x < kGridSize; ++x) {
+                (*this)[y][x].FadeOut();
+            }
+        }
+    }
+    void Reset() {
+        for (int y = 0; y < kGridSize; ++y) {
+            for (int x = 0; x < kGridSize; ++x) {
+                int blockId = rand() % kNumTypeBlocks + 1;
+                (*this)[y][x].SetTexture((King::Engine::Texture)(blockId));
+                (*this)[y][x].FadeIn();
+            }
+        }
+        mHadMatches = true;
+    }
+
     void Render(King::Engine &engine) {
         Grid &grid = *(this);
         for (int y = 0; y < kGridSize; ++y) {
@@ -22,14 +40,17 @@ public:
         }
 
     }
-    void Update() {
+    int Update() {
+        int points = 0;
         if (mHadMatches) {
-            mHadMatches = RemoveMatches();
+            points = RemoveMatches();
+            mHadMatches = points != 0;
             CollapseGrid();
         }
+        return points;
     }
 
-    bool RemoveMatches();
+    int RemoveMatches();
     void CollapseGrid();
 
     std::vector<Block *> GetHorizontalMatchingBlocks();

@@ -3,7 +3,7 @@
 #include "TaskManager.h"
 
 Block::Block()
-    : mTexture((King::Engine::Texture)(rand() % 5 + 1))
+    : mTexture((King::Engine::Texture)(rand() % kNumTypeBlocks + 1))
     , mIsVisible(true)
 {
     FadeIn();
@@ -23,7 +23,15 @@ void Block::FadeIn() {
     Block *block = this;
     TaskManager::Instance().RunTaskOverTime([block](float percentage) {
         block->SetAlpha(1.0f*percentage);
-    }, 1.0f);
+    }, kFadeSpeed);
+}
+
+
+void Block::FadeOut() {
+    Block *block = this;
+    TaskManager::Instance().RunTaskOverTime([block](float percentage) {
+        block->SetAlpha(1.0f*(1.0f-percentage));
+    }, kFadeSpeed);
 }
 
 void Block::MoveTo(int x, int y, float time) {

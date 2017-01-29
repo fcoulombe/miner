@@ -93,9 +93,11 @@ void MinerDragEvent::StopDrag(const glm::vec2 &screenMousePos, Grid &grid) {
     if (mOppositeDraggedBlock) {
         auto oppositeGridPos = MapScreenToGrid(mOppositeDraggedBlock->GetPosition());
         if (oppositeGridPos == mStartDragGridPos) {
+            grid[mOppositeStartDragGridPos.y][mOppositeStartDragGridPos.x].SetPosition(glm::ivec2(mStartDragGridPos.x, mStartDragGridPos.y));
+            grid[mStartDragGridPos.y][mStartDragGridPos.x].SetPosition(glm::ivec2(mOppositeStartDragGridPos.x, mOppositeStartDragGridPos.y));
             std::swap(grid[mOppositeStartDragGridPos.y][mOppositeStartDragGridPos.x], 
                       grid[mStartDragGridPos.y][mStartDragGridPos.x]);
-
+            
             auto verticalMatchingBlocks = grid.GetVerticalMatchingBlocks();
             auto horizontalMatchingBlocks = grid.GetHorizontalMatchingBlocks();
             if (!verticalMatchingBlocks.empty() || !horizontalMatchingBlocks.empty()) {
@@ -110,10 +112,10 @@ void MinerDragEvent::StopDrag(const glm::vec2 &screenMousePos, Grid &grid) {
         }
 
         if (!hasSwapped) {
-            mOppositeDraggedBlock->MoveTo(mOppositeStartDragGridPos.x, mOppositeStartDragGridPos.y, 0.3f);
+            mOppositeDraggedBlock->MoveTo(mOppositeStartDragGridPos.x, mOppositeStartDragGridPos.y, 0.1f);
         }
     }
     if (!hasSwapped) {
-        mDraggedBlock->MoveTo(mStartDragGridPos.x, mStartDragGridPos.y, 0.3f);
+        mDraggedBlock->MoveTo(mStartDragGridPos.x, mStartDragGridPos.y, 0.1f);
     }
 }

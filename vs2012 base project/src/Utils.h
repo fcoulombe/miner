@@ -2,11 +2,15 @@
 
 #include <glm/glm.hpp>
 
+constexpr float kFadeSpeed = 0.8f;
+constexpr float kGameFinishedDuration = 5.0f;
+constexpr float kGameDuration = 60.0f;
 constexpr float kBlockSize = 40.0f;
 constexpr float kHalfBlockSize = kBlockSize / 2.0f;
 constexpr float kGridOffsetX = 340.0f;
 constexpr float kGridOffsetY = 120.0f;
 constexpr int kGridSize = 8;
+constexpr int kNumTypeBlocks = 5;
 inline const glm::ivec2 MapScreenToGrid(const glm::vec2 &screenPosition) {
     return glm::ivec2((screenPosition.x - kGridOffsetX) / kBlockSize, (screenPosition.y - kGridOffsetY) / kBlockSize);
 }

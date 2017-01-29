@@ -142,10 +142,10 @@ namespace King {
 		surface.Bind();
 
 		glBegin(GL_QUADS);
-		glTexCoord2i(0, 1); glVertex2i(0, surface.Height());glColor4f(1.0f, 1.0f, 1.0f, alpha);
-		glTexCoord2i(1, 1); glVertex2i(surface.Width(), surface.Height());glColor4f(1.0f, 1.0f, 1.0f, alpha);
-		glTexCoord2i(1, 0); glVertex2i(surface.Width(), 0);glColor4f(1.0f, 1.0f, 1.0f, alpha);
-		glTexCoord2i(0, 0); glVertex2i(0, 0);glColor4f(1.0f, 1.0f, 1.0f, alpha);
+		glTexCoord2i(0, 1); glColor4f(1.0f, 1.0f, 1.0f, alpha); glVertex2i(0, surface.Height());
+		glTexCoord2i(1, 1); glColor4f(1.0f, 1.0f, 1.0f, alpha); glVertex2i(surface.Width(), surface.Height());
+		glTexCoord2i(1, 0); glColor4f(1.0f, 1.0f, 1.0f, alpha); glVertex2i(surface.Width(), 0);
+		glTexCoord2i(0, 0); glColor4f(1.0f, 1.0f, 1.0f, alpha); glVertex2i(0, 0);
 		glEnd();
 	}
 
@@ -175,7 +175,7 @@ namespace King {
 		return advance*TextScale;
 	}
 
-	void Engine::Write(const char* text, const glm::mat4& transform) {
+	void Engine::Write(const char* text, const glm::mat4& transform, float alpha) {
 		glLoadMatrixf(reinterpret_cast<const float*>(&transform));
 		int advance = 0;
 		for (; *text;++text) {
@@ -197,23 +197,23 @@ namespace King {
 			mPimpl->mFontSdlSurface->Bind();
 
 			glBegin(GL_QUADS);
-			glTexCoord2f(uvLeft / 2.0f, uvTop / 2.0f); glVertex2f(worldLeft * TextScale, worldTop * TextScale);
-			glTexCoord2f(uvRight / 2.0f, uvTop / 2.0f); glVertex2f(worldRight * TextScale, worldTop * TextScale);
-			glTexCoord2f(uvRight / 2.0f, uvBottom / 2.0f); glVertex2f(worldRight * TextScale, worldBottom * TextScale);
-			glTexCoord2f(uvLeft / 2.0f, uvBottom / 2.0f); glVertex2f(worldLeft * TextScale, worldBottom * TextScale);
+			glTexCoord2f(uvLeft / 2.0f, uvTop / 2.0f); glColor4f(1.0f, 1.0f, 1.0f, alpha); glVertex2f(worldLeft * TextScale, worldTop * TextScale);
+			glTexCoord2f(uvRight / 2.0f, uvTop / 2.0f); glColor4f(1.0f, 1.0f, 1.0f, alpha); glVertex2f(worldRight * TextScale, worldTop * TextScale);
+			glTexCoord2f(uvRight / 2.0f, uvBottom / 2.0f); glColor4f(1.0f, 1.0f, 1.0f, alpha); glVertex2f(worldRight * TextScale, worldBottom * TextScale);
+			glTexCoord2f(uvLeft / 2.0f, uvBottom / 2.0f); glColor4f(1.0f, 1.0f, 1.0f, alpha); glVertex2f(worldLeft * TextScale, worldBottom * TextScale);
 			glEnd();
 			advance += g.advance;
 		}
 	}
 
-	void Engine::Write(const char* text, float x, float y, float rotation) {
+	void Engine::Write(const char* text, float x, float y, float rotation, float alpha) {
 		glm::mat4 transformation;
 		transformation = glm::translate(transformation, glm::vec3(x, y, 0.0f));
 		if (rotation) {
 			transformation = glm::rotate(transformation, rotation, glm::vec3(0.0f, 0.0f, 1.0f));
 			transformation = glm::translate(transformation, glm::vec3(-CalculateStringWidth(text)/2.0f, -20.0f, 0.0f));
 		}
-		Write(text, transformation);
+		Write(text, transformation, alpha);
 	}
 
 	int Engine::GetWidth() const {

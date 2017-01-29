@@ -38,8 +38,8 @@ namespace King {
 
 
 		float CalculateStringWidth(const char* text) const;
-		void Write(const char* text, const glm::mat4& transform);
-		void Write(const char* text, float x, float y, float rotation = 0.0f);
+		void Write(const char* text, const glm::mat4& transform, float alpha);
+		void Write(const char* text, float x, float y, float rotation = 0.0f, float alpha = 1.0f);
 
 		int GetWidth() const;
 		int GetHeight() const;
