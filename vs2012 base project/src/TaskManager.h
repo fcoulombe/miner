@@ -17,12 +17,10 @@ class TaskManager {
 public:
     static TaskManager &Instance();
     void RunTaskOverTime(std::function<void(float)> task, float duration);
-    void RunTask(std::function<void()> task);
     void Update(float dt);
 
     bool IsBusy() const { return !mInterpolationTaskList.empty(); }
 private:
     TaskManager() {}
     std::list<InterpolationTask> mInterpolationTaskList;
-    std::list<std::function<void()>> mTaskList;
 };

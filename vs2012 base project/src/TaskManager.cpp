@@ -25,14 +25,7 @@ void TaskManager::RunTaskOverTime(std::function<void(float)> task, float duratio
     mInterpolationTaskList.emplace_back(InterpolationTask(task, duration));
 }
 
-void TaskManager::RunTask(std::function<void()> task) {
-    mTaskList.emplace_back(task);
-}
 void TaskManager::Update(float dt) {
-    if (mTaskList.size()) {
-        mTaskList.front()();
-        mTaskList.pop_front();
-    }
     for (auto taskIt = mInterpolationTaskList.begin(); taskIt != mInterpolationTaskList.end(); ) {
         if (!taskIt->Update(dt)) {
             //remove
