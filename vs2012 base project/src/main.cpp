@@ -87,7 +87,7 @@ public:
                     const glm::ivec2 selectionGridPos = MapScreenToGrid(mSelection->GetPosition());
                     const glm::ivec2 secondSelectionGridPos = MapScreenToGrid(secondSelection->GetPosition());
                     const glm::ivec2 delta = glm::abs(secondSelectionGridPos - selectionGridPos);
-                    // if direct neightbor
+                    // if direct neighbor
                     if ((delta.x == 1 && delta.y == 0) || (delta.x == 0 && delta.y == 1)) {
                         std::swap(mGrid[selectionGridPos.y][selectionGridPos.x], mGrid[secondSelectionGridPos.y][secondSelectionGridPos.x]);
                         auto verticalMatchingBlocks = mGrid.GetVerticalMatchingBlocks();
