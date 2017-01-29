@@ -47,7 +47,7 @@ public:
             mHadMatches = points != 0;
             CollapseGrid();
         }
-        return points;
+        return points*kPointMultiplier;
     }
 
     int RemoveMatches();

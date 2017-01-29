@@ -2,6 +2,14 @@
 
 #include <glm/glm.hpp>
 
+
+constexpr int kPointMultiplier = 10;
+constexpr float kGameSpeed = 1.0f;
+
+constexpr float kBlockDefaultAlpha = 0.8f;
+constexpr float kBlockSelectedAlpha = 1.0f;
+
+constexpr float kDragMovementThreshold = 15.0f;
 constexpr float kFadeSpeed = 0.8f;
 constexpr float kGameFinishedDuration = 5.0f;
 constexpr float kGameDuration = 60.0f;

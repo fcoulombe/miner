@@ -22,7 +22,7 @@ void Block::Render(King::Engine &engine) {
 void Block::FadeIn() {
     Block *block = this;
     TaskManager::Instance().RunTaskOverTime([block](float percentage) {
-        block->SetAlpha(1.0f*percentage);
+        block->SetAlpha(kBlockDefaultAlpha*percentage);
     }, kFadeSpeed);
 }
 
@@ -30,7 +30,7 @@ void Block::FadeIn() {
 void Block::FadeOut() {
     Block *block = this;
     TaskManager::Instance().RunTaskOverTime([block](float percentage) {
-        block->SetAlpha(1.0f*(1.0f-percentage));
+        block->SetAlpha(kBlockDefaultAlpha*(1.0f-percentage));
     }, kFadeSpeed);
 }
 

@@ -17,14 +17,23 @@ void MinerDragEvent::ResetPositions() {
     }
     mDraggedBlock->SetPosition(mStartDragGridPos);
 }
+
+bool MinerDragEvent::IsDragging(const glm::vec2 &screenMousePos) const {
+    const glm::vec2 delta = screenMousePos - mStartDragMouseScreenPos;
+    const glm::vec2 absDelta = glm::abs(delta);
+    if (absDelta.x < kDragMovementThreshold && absDelta.y < kDragMovementThreshold) {
+        return false;
+    }
+    return true;
+}
+
 void MinerDragEvent::OnDrag(const glm::vec2 &screenMousePos, Grid &grid) {
     const glm::vec2 delta = screenMousePos - mStartDragMouseScreenPos;
     const glm::vec2 absDelta = glm::abs(delta);
     ResetPositions();
     
-    constexpr float kMovementThreshold = 15.0f;
     // we only want to move the block if the drag is more than 15 pixels
-    if (absDelta.x < kMovementThreshold && absDelta.y < kMovementThreshold) {
+    if (absDelta.x < kDragMovementThreshold && absDelta.y < kDragMovementThreshold) {
         return;
     }
 

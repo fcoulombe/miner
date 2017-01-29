@@ -12,6 +12,14 @@ public:
     void FadeIn();
     void FadeOut();
 
+    void Select() {
+        SetAlpha(kBlockSelectedAlpha);
+    }
+
+    void Unselect() {
+        SetAlpha(kBlockDefaultAlpha);
+    }
+
     void MoveTo(int x, int y, float time = 0.3f);
 
     void SetPosition(int x, int y)
