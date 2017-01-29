@@ -1,16 +1,17 @@
 #pragma once
 
+#include <king/Engine.h>
 #include "Utils.h"
 
 class Block {
 public:
     Block();
 
-    void Update(King::Engine &engine);
+    void Render(King::Engine &engine);
 
     void FadeIn();
 
-    void MoveTo(int x, int y);
+    void MoveTo(int x, int y, float time = 1.0f);
 
     void SetPosition(int x, int y)
     {
@@ -38,3 +39,5 @@ private:
     bool mIsVisible;
     float mAlpha = 0.0f;
 };
+
+

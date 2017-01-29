@@ -82,7 +82,9 @@
     <ClCompile Include="..\external\include\king\SdlSurface.cpp" />
     <ClCompile Include="..\external\include\king\SdlWindow.cpp" />
     <ClCompile Include="..\src\Block.cpp" />
+    <ClCompile Include="..\src\Grid.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\MinerDragEvent.cpp" />
     <ClCompile Include="..\src\TaskManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +96,8 @@
     <ClInclude Include="..\external\include\king\SdlWindow.h" />
     <ClInclude Include="..\external\include\king\Updater.h" />
     <ClInclude Include="..\src\Block.h" />
+    <ClInclude Include="..\src\Grid.h" />
+    <ClInclude Include="..\src\MinerDragEvent.h" />
     <ClInclude Include="..\src\TaskManager.h" />
     <ClInclude Include="..\src\Utils.h" />
   </ItemGroup>

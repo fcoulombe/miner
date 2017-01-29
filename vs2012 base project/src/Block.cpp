@@ -9,7 +9,7 @@ Block::Block()
     FadeIn();
 }
 
-void Block::Update(King::Engine &engine) {
+void Block::Render(King::Engine &engine) {
     if (!mIsVisible || MapScreenToGrid(GetPosition()).y < 0) {
         return;
     }
@@ -26,12 +26,13 @@ void Block::FadeIn() {
     }, 1.0f);
 }
 
-void Block::MoveTo(int x, int y) {
-    glm::vec2 destination(MapGridToScreen(glm::vec2((float)x, (float)y)));
-    glm::vec2 origin = mPosition;
-    glm::vec2 delta(destination - origin);
+void Block::MoveTo(int x, int y, float time) {
+    const glm::vec2 destination(MapGridToScreen(glm::vec2((float)x, (float)y)));
+    const glm::vec2 origin = mPosition;
+    const glm::vec2 delta(destination - origin);
     Block *currentBlock = this;
     TaskManager::Instance().RunTaskOverTime([currentBlock, delta, origin](float percentage) {
         currentBlock->SetPosition(origin + (delta*percentage));
-    }, 1.0f);
+    }, time);
 }
+
